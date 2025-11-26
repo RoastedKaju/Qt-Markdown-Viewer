@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 
 #include <cmark.h>
+#include <QFileDialog>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     renderTimer->setInterval(120);
 
     connect(renderTimer, &QTimer::timeout, this, &MainWindow::renderMarkdown);
+
 }
 
 MainWindow::~MainWindow()
@@ -46,3 +49,30 @@ void MainWindow::renderMarkdown()
     // Display
     ui->textEditOutput->setHtml(html);
 }
+
+void MainWindow::on_actionOpen_triggered()
+{
+    QString filePath = QFileDialog::getOpenFileName(this, tr("Open File"), QString(), tr("All Files (*.*);;Text Files (*.txt)"));
+
+    if (!filePath.isEmpty())
+    {
+        // Process the selected file, e.g., load its content
+        QFile file(filePath);
+
+        if (file.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            QTextStream in(&file);
+            QString content = in.readAll();
+
+            // Set the content to our input text box
+            ui->textEdit->setText(content);
+
+            file.close();
+        }
+        else
+        {
+            QMessageBox::warning(this, tr("Error"), tr("Could not open file: %1").arg(file.errorString()));
+        }
+    }
+}
+

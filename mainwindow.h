@@ -19,13 +19,19 @@ public:
     ~MainWindow();
 
 private slots:
+    // On Input Markdown text changed
     void on_textEdit_textChanged();
 
+    // Display Markdown
     void renderMarkdown();
 
-private:
-    Ui::MainWindow *ui;
+    // On file open action triggered
+    void on_actionOpen_triggered();
 
+private:
+    // UI reference
+    Ui::MainWindow *ui;
+    // Debounce timer
     QTimer* renderTimer;
 };
 #endif // MAINWINDOW_H
