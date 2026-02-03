@@ -10,5 +10,5 @@ Type the Raw text in the left field and the output will appear in the right fiel
 ## Built With
 - **Language**: C++ 17
 - **Build System**: [CMake](https://cmake.org)
-- **Third Party**: Qt-Framework, [ImGui](https://github.com/commonmark/cmark)
+- **Third Party**: Qt-Framework
 - **Platform**: Windows
